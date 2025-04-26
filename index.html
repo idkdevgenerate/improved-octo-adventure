@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Fullscreen Video Player</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        video { width: 80%; max-width: 900px; }
+        button, input { padding: 10px; margin: 5px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Custom Fullscreen Video Player</h1>
+
+    <input type="file" accept="video/*" id="videoUpload">
+    <button onclick="loadVideo()">Upload & Play</button>
+    <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+
+    <video id="customVideo" controls referrerpolicy="strict-origin-when-cross-origin">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        "use strict";
+
+        function loadVideo() {
+            const file = document.getElementById("videoUpload").files[0];
+            if (file) {
+                const videoElement = document.getElementById("customVideo");
+                videoElement.src = URL.createObjectURL(file);
+                videoElement.play();
+            }
+        }
+
+        function toggleFullscreen() {
+            const videoElement = document.getElementById("customVideo");
+
+            if (videoElement.requestFullscreen) {
+                videoElement.requestFullscreen();
+            } else if (videoElement.mozRequestFullScreen) { 
+                videoElement.mozRequestFullScreen();
+            } else if (videoElement.webkitRequestFullscreen) { 
+                videoElement.webkitRequestFullscreen();
+            } else if (videoElement.msRequestFullscreen) { 
+                videoElement.msRequestFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
